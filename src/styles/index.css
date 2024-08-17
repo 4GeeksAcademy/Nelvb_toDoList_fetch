@@ -40,7 +40,6 @@ h1 {
     border: 2px solid black; 
     border-radius: 10px; 
     padding: 20px; 
-    box-shadow: 0 4px 8px rgba(115, 102, 102, 0.1); 
     color: lightgrey;
     box-shadow: 0px 0px 5px 1px lightgray;
 }
@@ -57,6 +56,12 @@ h1 {
     align-items: center; 
     padding: 10px; 
     border-bottom: 1px solid #ccc; 
+  
+}
+
+.toDoTask-item div {
+    display: flex;
+    gap: 10px; /* Añade un espacio de 10px entre los botones */
 }
 
 /* Estilos para el botón de eliminar tarea */
@@ -105,4 +110,21 @@ input[type="text"] {
     .tarjeta {
         padding: 15px; /* Reduce el padding interno de la tarjeta */
     }
+}
+
+.delete-all {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: rgb(83, 78, 78);
+    color: white;
+}
+
+.delete-all:hover {
+    background-color: rgb(165, 96, 96); /* Cambia a un color rojo brillante al pasar el cursor */
+    color: white; /* Mantiene el texto en blanco */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
 }

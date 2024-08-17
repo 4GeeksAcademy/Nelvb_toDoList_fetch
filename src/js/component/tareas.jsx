@@ -145,6 +145,7 @@ const Tareas = ({ toDoTasks, setToDoTasks }) => {
                 const newToDoTasks = [...toDoTasks];
                 newToDoTasks[index] = updatedTask;
                 setToDoTasks(newToDoTasks);
+                setEditIndex(null);
                 setInputValue('');  // Limpia el valor del input después de la edición.
                 console.log("Tarea actualizada exitosamente");
             } else {
@@ -155,6 +156,10 @@ const Tareas = ({ toDoTasks, setToDoTasks }) => {
         }
     };
 
+    const handleInputClick = () => {
+        setInputValue('');  // Limpia el valor del input cuando se hace clic en él
+    };
+
     return (
         <div className="toDoTask-list tarjeta">
             <input
@@ -163,6 +168,7 @@ const Tareas = ({ toDoTasks, setToDoTasks }) => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)} // Actualiza el estado cuando el usuario escribe.
                 onKeyDown={addToDoTask} // Llama a addToDoTask cuando se presiona una tecla.
+                onClick={handleInputClick} // Limpia el input cuando se hace clic
             />
             {toDoTasks.length === 0 ? (
                 <p>No hay tareas, añadir tareas</p>
