@@ -36,7 +36,7 @@ const Tareas = ({ toDoTasks, setToDoTasks }) => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify([])
+                body: JSON.stringify([]) // Se crea el usuario con una lista de tareas vacía
             });
             if (response.ok) {
                 console.log("Usuario creado exitosamente");
@@ -103,6 +103,28 @@ const Tareas = ({ toDoTasks, setToDoTasks }) => {
         }
     };
 
+    const eliminarTodasLasTareas = async () => {
+        console.log("Eliminando todas las tareas...");
+        const eliminarTareaPorId = async (tareaId) => {
+            try {
+                const response = await fetch(`https://playground.4geeks.com/todo/todos/${tareaId}`, {
+                    method: "DELETE",
+                });
+                if (!response.ok) {
+                    throw new Error("No se pudo eliminar la tarea con id: " + tareaId);
+                }
+            } catch (error) {
+                console.error("Error al eliminar la tarea:", error);
+            }
+        };
+
+        const tareasPromises = toDoTasks.map(tarea => eliminarTareaPorId(tarea.id));
+        await Promise.all(tareasPromises);
+
+        setToDoTasks([]);
+        console.log("Todas las tareas han sido eliminadas exitosamente");
+    };
+
     const editarTarea = (index) => {
         setEditIndex(index);
         setInputValue(toDoTasks[index].label);
@@ -123,7 +145,6 @@ const Tareas = ({ toDoTasks, setToDoTasks }) => {
                 const newToDoTasks = [...toDoTasks];
                 newToDoTasks[index] = updatedTask;
                 setToDoTasks(newToDoTasks);
-                setEditIndex(null);
                 setInputValue('');  // Limpia el valor del input después de la edición.
                 console.log("Tarea actualizada exitosamente");
             } else {
@@ -160,6 +181,9 @@ const Tareas = ({ toDoTasks, setToDoTasks }) => {
                     </div>
                 ))
             )}
+            <button onClick={eliminarTodasLasTareas} className="delete-all">
+                Eliminar todas las tareas
+            </button>
         </div>
     );
 };
